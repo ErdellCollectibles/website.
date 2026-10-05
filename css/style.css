@@ -1,0 +1,159 @@
+/* Erdell Collectibles – Stylesheet
+   Schriften: Lege archivo.woff2 und figtree.woff2 in den Ordner /fonts,
+   dann werden sie automatisch genutzt (lokal gehostet, DSGVO-freundlich).
+   Ohne die Dateien greift eine Systemschrift. */
+
+@font-face {
+  font-family: "Archivo";
+  src: url("../fonts/archivo.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Figtree";
+  src: url("../fonts/figtree.woff2") format("woff2");
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+:root {
+  --ink: #161412;
+  --muted: #5b554c;
+  --line: #e4e0d8;
+  --paper: #ffffff;
+  --soft: #f6f4ef;
+  --display: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --wrap: 1080px;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main { flex: 1; }
+a { color: var(--ink); text-underline-offset: 3px; }
+a:hover { color: var(--muted); }
+img { max-width: 100%; height: auto; display: block; }
+
+.wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+
+/* Header */
+.site-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 24px; max-width: var(--wrap); margin: 0 auto; width: 100%;
+}
+.site-header .brand img { height: 34px; width: auto; }
+.home .site-header .brand { visibility: hidden; }
+
+.menu-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: none; border: 0; padding: 10px 4px; cursor: pointer;
+  font: 600 15px/1 var(--body); color: var(--ink); min-height: 44px;
+}
+.menu-btn .bars { display: inline-flex; flex-direction: column; gap: 5px; }
+.menu-btn .bars span { display: block; width: 28px; height: 2px; background: var(--ink); }
+
+/* Menu overlay */
+.nav {
+  position: fixed; inset: 0; background: var(--paper); z-index: 50;
+  display: none; flex-direction: column; padding: 22px 24px;
+}
+.nav.open { display: flex; }
+.nav-top { display: flex; justify-content: space-between; align-items: center; max-width: var(--wrap); width: 100%; margin: 0 auto; }
+.nav-top img { height: 34px; width: auto; }
+.nav ul {
+  list-style: none; margin: 0 auto; padding: 0; flex: 1;
+  display: flex; flex-direction: column; justify-content: center; gap: 18px;
+  max-width: var(--wrap); width: 100%;
+}
+.nav ul a {
+  font: 800 clamp(34px, 7vw, 64px)/1.05 var(--display); font-stretch: 125%;
+  text-decoration: none; letter-spacing: -0.5px;
+}
+.nav ul a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 3px; }
+.close-btn { background: none; border: 0; font: 600 15px var(--body); cursor: pointer; min-height: 44px; padding: 10px 4px; color: var(--ink); }
+
+/* Home */
+.hero {
+  min-height: calc(100vh - 180px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 40px 24px; gap: 22px;
+}
+.hero img { width: min(520px, 80vw); }
+.hero .soon { font: 700 18px var(--display); font-stretch: 125%; letter-spacing: 4px; text-transform: uppercase; margin: 8px 0 0; }
+.hero p { margin: 0; color: var(--muted); max-width: 440px; }
+
+/* Page headings */
+.page-head { padding-top: 40px; padding-bottom: 10px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+h1, h2, h3 { font-family: var(--display); font-stretch: 125%; font-weight: 800; letter-spacing: -0.5px; line-height: 1.05; margin: 0 0 14px; }
+h1 { font-size: clamp(34px, 6vw, 58px); }
+h2 { font-size: clamp(26px, 4vw, 38px); }
+h3 { font-size: 20px; }
+.lead { font-size: 20px; color: var(--muted); max-width: 640px; margin: 0; }
+
+section { padding: 40px 0; }
+.band { background: var(--soft); }
+
+/* Product */
+.product { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 48px; align-items: center; }
+.product svg { width: 100%; max-width: 300px; height: auto; margin: 0 auto; display: block; color: var(--ink); }
+.badge { display: inline-block; font: 700 12px var(--display); font-stretch: 125%; letter-spacing: 3px; text-transform: uppercase; border: 1.5px solid var(--ink); padding: 6px 10px; margin-bottom: 16px; }
+.features { list-style: none; padding: 0; margin: 24px 0; display: grid; gap: 14px; }
+.features li { display: flex; gap: 14px; align-items: center; }
+.features .ico { width: 52px; height: 52px; flex-shrink: 0; border: 2px solid var(--ink); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+.features strong { display: block; font-family: var(--display); font-stretch: 125%; font-size: 15px; text-transform: uppercase; letter-spacing: 0.4px; }
+.features span { color: var(--muted); font-size: 15px; }
+.note { font-size: 13px; color: var(--muted); }
+
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.card { background: var(--paper); border: 1px solid var(--line); padding: 26px; display: flex; flex-direction: column; gap: 8px; }
+.card .tag { font: 700 11px var(--display); font-stretch: 125%; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+.card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+/* Contact */
+.contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+.mail { font: 800 clamp(20px, 3vw, 28px) var(--display); font-stretch: 110%; word-break: break-word; }
+.portrait { aspect-ratio: 4 / 5; background: var(--soft); overflow: hidden; }
+.portrait img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Legal */
+.legal { max-width: 760px; }
+.legal h2 { font-size: 22px; margin-top: 34px; }
+.legal p, .legal li { color: #2b2824; }
+
+/* Footer */
+.site-footer { border-top: 1px solid var(--line); margin-top: 40px; }
+.site-footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 22px; padding-bottom: 22px; font-size: 14px; color: var(--muted); flex-wrap: wrap; }
+.site-footer nav { display: flex; gap: 20px; }
+.site-footer a { color: var(--muted); }
+
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .product, .contact-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .cards { grid-template-columns: minmax(0, 1fr); }
+  .portrait { max-width: 320px; }
+}
+
+/* Form */
+.form { display: grid; gap: 8px; max-width: 520px; }
+.form label { font-weight: 600; font-size: 15px; margin-top: 8px; }
+.form input, .form select, .form textarea {
+  font: inherit; color: var(--ink); background: var(--paper);
+  border: 1.5px solid #c9c3b8; border-radius: 6px; padding: 12px 14px; width: 100%; min-height: 48px;
+}
+.form input:focus, .form select:focus, .form textarea:focus { outline: 2px solid var(--ink); outline-offset: 1px; border-color: var(--ink); }
+.form .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.btn { justify-self: start; margin-top: 8px; background: var(--ink); color: var(--paper); border: 0; border-radius: 6px; padding: 14px 24px; min-height: 48px; font: 700 15px var(--body); cursor: pointer; }
+.btn:hover { background: #3a3631; }
