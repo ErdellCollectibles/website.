@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Impressum – Erdell Collectibles</title>
+<meta name="description" content="Impressum von Erdell Collectibles.">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="Erdell Collectibles – Startseite"><img src="img/logo.png" alt="erdell collectibles" width="536" height="174"></a>
+  <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" id="menu-open">Menü <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span></button>
+</header>
+<div class="nav" id="nav" role="dialog" aria-modal="true" aria-label="Menü">
+  <div class="nav-top">
+    <a href="index.html"><img src="img/logo.png" alt="erdell collectibles" width="536" height="174"></a>
+    <button class="close-btn" type="button" id="menu-close">Schließen ✕</button>
+  </div>
+  <ul><li><a href="index.html">Start</a></li><li><a href="produkte.html">Produkte</a></li><li><a href="kontakt.html">Kontakt</a></li><li><a href="impressum.html" aria-current="page">Impressum</a></li><li><a href="datenschutz.html">Datenschutz</a></li></ul>
+</div>
+<main>
+<div class="wrap page-head"><h1>Impressum</h1></div>
+<section style="padding-top:0"><div class="wrap legal">
+<h2>Angaben gemäß § 5 DDG</h2>
+<p>Erdell Collectibles<br>Inhaber: Erik Erdell<br>Gestütring 11<br>85435 Erding<br>Deutschland</p>
+<h2>Kontakt</h2>
+<p>E-Mail: <a href="mailto:info@erdellcollectibles.de">info@erdellcollectibles.de</a><br>Telefon: <a href="tel:+4917663777071">+49 176 63777071</a></p>
+<h2>Umsatzsteuer</h2>
+<p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [wird nachgetragen, sobald erteilt]</p>
+<h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+<p>Erik Erdell<br>Gestütring 11<br>85435 Erding</p>
+<h2>Verbraucherstreitbeilegung</h2>
+<p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+</div></section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Erdell Collectibles – Inh. Erik Erdell</span>
+    <nav aria-label="Rechtliches"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+  </div>
+</footer>
+<script>
+(function(){var n=document.getElementById('nav'),o=document.getElementById('menu-open'),c=document.getElementById('menu-close');
+function s(v){n.classList.toggle('open',v);o.setAttribute('aria-expanded',v);document.body.style.overflow=v?'hidden':'';if(v)c.focus();else o.focus();}
+o.addEventListener('click',function(){s(true)});c.addEventListener('click',function(){s(false)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&n.classList.contains('open'))s(false)});})();
+</script>
+</body>
+</html>
