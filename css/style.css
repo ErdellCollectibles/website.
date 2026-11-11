@@ -1,7 +1,6 @@
 /* Erdell Collectibles – Stylesheet
-   Schriften: Lege archivo.woff2 und figtree.woff2 in den Ordner /fonts,
-   dann werden sie automatisch genutzt (lokal gehostet, DSGVO-freundlich).
-   Ohne die Dateien greift eine Systemschrift. */
+   Schriften: Archivo und Figtree liegen lokal in /fonts (SIL Open Font License,
+   Lizenztexte daneben). Kein Abruf bei Google, DSGVO-freundlich. */
 
 @font-face {
   font-family: "Archivo";
@@ -44,6 +43,8 @@ body {
 main { flex: 1; }
 a { color: var(--ink); text-underline-offset: 3px; }
 a:hover { color: var(--muted); }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+::selection { background: var(--ink); color: var(--paper); }
 img { max-width: 100%; height: auto; display: block; }
 
 .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
@@ -119,7 +120,6 @@ section { padding: 40px 0; }
 
 .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .card { background: var(--paper); border: 1px solid var(--line); padding: 26px; display: flex; flex-direction: column; gap: 8px; }
-.card .tag { font: 700 11px var(--display); font-stretch: 125%; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
 .card p { margin: 0; color: var(--muted); font-size: 15px; }
 
 /* Contact */
@@ -127,6 +127,7 @@ section { padding: 40px 0; }
 .mail { font: 800 clamp(20px, 3vw, 28px) var(--display); font-stretch: 110%; word-break: break-word; }
 .portrait { aspect-ratio: 4 / 5; background: var(--soft); overflow: hidden; }
 .portrait img { width: 100%; height: 100%; object-fit: cover; }
+.contact-grid h2.sub { font-size: 20px; margin-top: 34px; }
 
 /* Legal */
 .legal { max-width: 760px; }
@@ -137,6 +138,7 @@ section { padding: 40px 0; }
 .site-footer { border-top: 1px solid var(--line); margin-top: 40px; }
 .site-footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 22px; padding-bottom: 22px; font-size: 14px; color: var(--muted); flex-wrap: wrap; }
 .site-footer nav { display: flex; gap: 20px; }
+.site-footer nav a { display: inline-block; padding: 10px 0; }
 .site-footer a { color: var(--muted); }
 
 @media (max-width: 760px) {
