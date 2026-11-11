@@ -227,6 +227,18 @@ p { margin: 0; }
 }
 .specs dt, .specs dd { margin: 0; }
 .specs dt { color: var(--on-ink-muted); }
+/* Datenblatt als PDF: Text mit Button, daneben die beiden Seiten */
+.sheet { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 56px calc(var(--gap) * 3); align-items: center; margin-top: 8px; }
+.sheet-lead { font-size: var(--t-sub); line-height: 1.35; max-width: 24ch; }
+.sheet .btn { margin-top: 40px; }
+.btn--light { background: var(--on-ink); color: var(--ink); }
+.btn--light:hover { background: var(--paper); }
+.btn--light:hover .arrow { transform: translateY(3px); }
+.sheet-meta { margin-top: 16px; font-size: var(--t-small); color: var(--on-ink-muted); }
+.sheet-pages { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: start; }
+.sheet-pages img { width: 100%; height: auto; box-shadow: 0 24px 60px rgba(0, 0, 0, .5); transition: transform .45s var(--ease); }
+.sheet-pages img + img { margin-top: 56px; }
+.sheet-pages:hover img { transform: translateY(-6px); }
 .specs .note { margin-top: 56px; font-size: var(--t-small); color: var(--on-ink-muted); max-width: 60ch; }
 
 /* ---------- 7. Kontakt: Karte auf dem Foto ---------- */
@@ -282,6 +294,7 @@ p { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   .js .rise { opacity: 1; transform: none; transition: none; }
   .btn, .btn .arrow, .link-arrow span, .footer-menu a, .step h3, .step p { transition: none; }
+  .sheet-pages img, .sheet-pages:hover img { transition: none; transform: none; }
 }
 
 /* ---------- Tablet ---------- */
@@ -336,6 +349,10 @@ p { margin: 0; }
   .specs { padding-top: 64px; padding-bottom: 72px; }
   .specs .row { grid-template-columns: 1fr; padding: 0 0 18px; }
   .specs dt { font-size: var(--t-small); line-height: 1.4; }
+  .sheet { grid-template-columns: 1fr; gap: 40px; }
+  .sheet-lead { font-size: var(--t-lead); }
+  .sheet .btn { margin-top: 28px; }
+  .sheet-pages img + img { margin-top: 32px; }
 
   .contact { min-height: 0; }
   .contact > img { position: static; height: 70svh; }
