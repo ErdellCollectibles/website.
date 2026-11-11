@@ -9,7 +9,7 @@
   function start(el) {
     if (el.__ec3d) return;
     el.__ec3d = true;
-    import(base + 'case3d-scene.js')
+    import(base + 'case3d-scene.js?v=3')
       .then(function (m) { return m.mount(el); })
       .catch(function (err) {
         console.error('3D-Ansicht konnte nicht geladen werden', err);

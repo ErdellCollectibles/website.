@@ -314,7 +314,7 @@ export async function mount(root) {
   const pBack = panel(BOX.w, BOX.h, t, 5, texBack); pBack.position.set(0, BOX.h / 2, -BOX.d / 2 + t / 2);
   const pLeft = panel(t, BOX.h, BOX.d - 2 * t, 1, texLeft); pLeft.position.set(-BOX.w / 2 + t / 2, BOX.h / 2, 0);
   const pRight = panel(t, BOX.h, BOX.d - 2 * t, 0, texRight); pRight.position.set(BOX.w / 2 - t / 2, BOX.h / 2, 0);
-  const pBottom = panel(BOX.w, t, BOX.d, 2, null); pBottom.position.y = t / 2;
+  const pBottom = panel(BOX.w - 2 * t, t, BOX.d - 2 * t, 2, null); pBottom.position.y = t / 2;
   carton.add(pFront, pBack, pLeft, pRight, pBottom);
 
   const lidPivot = new THREE.Group();
@@ -323,7 +323,8 @@ export async function mount(root) {
   lidPivot.add(pLid);
   const tuckPivot = new THREE.Group();
   tuckPivot.position.set(0, 0, BOX.d);
-  const pTuck = panel(BOX.w - 0.6, 1.9, t, 4, null); pTuck.position.set(0, -0.95, -t / 2);
+  // Lasche knapp hinter der Vorderwand, sonst liegen beide in einer Ebene und flackern
+  const pTuck = panel(BOX.w - 0.6, 1.9, t, 4, null); pTuck.position.set(0, -0.95, -1.5 * t - 0.03);
   tuckPivot.add(pTuck);
   lidPivot.add(tuckPivot);
   carton.add(lidPivot);
@@ -347,7 +348,7 @@ export async function mount(root) {
   let cartonAlpha = 1;
   let firstFit = true;
 
-  function applyPose(p) {
+  function applyPose(p, sampleOnly) {
     tuckPivot.rotation.x = -0.58 * Math.PI * p.tuck;
     lidPivot.rotation.x = -0.66 * Math.PI * p.boxLid;
     dustL.rotation.z = 0.62 * Math.PI * p.dust;
@@ -355,7 +356,7 @@ export async function mount(root) {
     caseGroup.position.y = p.caseY;
 
     const a = 1 - p.cartonFade;
-    if (a !== cartonAlpha) {
+    if (!sampleOnly && a !== cartonAlpha) {
       const needT = a < 0.999;
       for (const m of cartonMats) {
         if (m.transparent !== needT) { m.transparent = needT; m.needsUpdate = true; }
@@ -370,7 +371,7 @@ export async function mount(root) {
     lid.rotation.z = lp.rz;
 
     etbGroup.visible = p.etbIn > 0.0001;
-    etbGroup.position.y = CASE.plate + 0.02 + 30 * (1 - easeOut(p.etbIn));
+    etbGroup.position.y = CASE.plate + 0.02 + 14 * (1 - easeOut(p.etbIn));
     etbGroup.rotation.y = 0.25 * (1 - easeOut(p.etbIn));
 
     magnetMat.emissiveIntensity = 1.6 * p.click;
@@ -384,11 +385,30 @@ export async function mount(root) {
   // Kamera-Rahmen aus den sichtbaren Objekten
   const box3 = new THREE.Box3(), tmpBox = new THREE.Box3();
   const fitCenter = new THREE.Vector3(), fitSize = new THREE.Vector3();
+  // Der Rahmen umfasst die ganze Bewegung des laufenden Schritts (Klappe, Anheben,
+  // Einsetzen). So ragt nichts kurz über den Bildrand und die Kamera ruckelt nicht nach.
+  let envKey = '';
+  const envBox = new THREE.Box3();
+  function poseBox(target) {
+    if (carton.visible) target.union(tmpBox.setFromObject(carton));
+    target.union(tmpBox.setFromObject(body));
+    target.union(tmpBox.setFromObject(lid));
+    if (etbGroup.visible) target.union(tmpBox.setFromObject(etbGroup));
+  }
+  function envelope() {
+    const from = Math.floor(Math.min(tCur, tTarget) + 1e-6), to = Math.ceil(Math.max(tCur, tTarget) - 1e-6);
+    const k = from + ':' + to;
+    if (k !== envKey) {
+      envKey = k;
+      envBox.makeEmpty();
+      const n = Math.max(1, (to - from) * 24);
+      for (let i = 0; i <= n; i++) { applyPose(poseAt(from + (to - from) * i / n), true); poseBox(envBox); }
+      applyPose(poseAt(tCur), true);
+    }
+    return envBox;
+  }
   function fitTarget() {
-    box3.makeEmpty();
-    if (carton.visible) box3.union(tmpBox.setFromObject(carton));
-    box3.union(tmpBox.setFromObject(body));
-    box3.union(tmpBox.setFromObject(lid));
+    box3.copy(envelope());
     box3.getCenter(fitCenter);
     box3.getSize(fitSize);
     const radius = fitSize.length() / 2;
@@ -399,13 +419,13 @@ export async function mount(root) {
     const withHead = head.classList.contains('is-on');
     const narrowStage = stage.clientWidth < 560;
     if (withHead && !narrowStage) fitCenter.y += fitSize.y * 0.1;
-    return { center: fitCenter, dist: (radius / Math.sin(fov / 2)) * (withHead ? (narrowStage ? 1.3 : 1.08) : 0.92) };
+    return { center: fitCenter, dist: (radius / Math.sin(fov / 2)) * (withHead ? (narrowStage ? 1.3 : 1.08) : 1.0) };
   }
 
   const prevTarget = new THREE.Vector3();
   function updateCamera(dt) {
     const f = fitTarget();
-    const k = firstFit ? 1 : 1 - Math.exp(-dt * 3.2);
+    const k = firstFit ? 1 : 1 - Math.exp(-dt * 4.5);
     firstFit = false;
     prevTarget.copy(camTarget);
     camTarget.lerp(f.center, k);

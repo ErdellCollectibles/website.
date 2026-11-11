@@ -19,9 +19,7 @@
   min-height: 340px;
   max-height: 78vh;
   overflow: hidden;
-  background:
-    radial-gradient(120% 90% at 50% 30%, #ffffff 0%, #f4f2ed 52%, #e6e2da 100%);
-  border: 1px solid var(--ec-line);
+  background: var(--ec-soft);
   cursor: grab;
   outline: none;
   user-select: none;
@@ -29,7 +27,7 @@
   touch-action: pan-y;
 }
 .ec3d-stage.is-grabbing { cursor: grabbing; }
-.ec3d-stage:focus-visible { box-shadow: 0 0 0 3px var(--ec-ink) inset; }
+.ec3d-stage:focus-visible { outline: 3px solid var(--ec-ink); outline-offset: -3px; }
 
 .ec3d-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .ec3d-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
@@ -41,10 +39,7 @@
   position: absolute; left: 0; top: 0;
   max-width: 220px;
   padding: 9px 12px 10px;
-  background: rgba(255, 255, 255, .9);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  border: 1px solid var(--ec-line);
+  background: var(--ec-paper);
   opacity: 0;
   transition: opacity .35s ease;
   will-change: transform, opacity;
@@ -52,18 +47,18 @@
 .ec3d-label.is-on { opacity: 1; }
 .ec3d-label strong {
   display: block;
-  font: 800 13px/1.2 var(--ec-display);
-  font-stretch: 125%;
-  text-transform: uppercase;
-  letter-spacing: .4px;
+  font: 800 15px/1.2 var(--ec-display);
+  font-stretch: 112%;
+  letter-spacing: -.01em;
 }
-.ec3d-label span { display: block; margin-top: 3px; font-size: 13px; line-height: 1.35; color: var(--ec-muted); }
+.ec3d-label span { display: block; margin-top: 3px; font-size: 15px; line-height: 1.35; color: var(--ec-muted); }
 
 .ec3d-dot {
-  position: absolute; left: -5px; top: -5px;
+  position: absolute; left: -8px; top: -8px;
   width: 10px; height: 10px; border-radius: 50%;
   background: var(--ec-ink);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, .85);
+  border: 3px solid var(--ec-paper);
+  box-sizing: content-box;
   opacity: 0; transition: opacity .35s ease;
 }
 .ec3d-dot.is-on { opacity: 1; }
@@ -71,7 +66,7 @@
 .ec3d-head {
   position: absolute; left: 22px; top: 18px; margin: 0;
   max-width: min(440px, 70%);
-  font: 800 clamp(20px, 3vw, 32px)/1.08 var(--ec-display);
+  font: 800 var(--t-sub, clamp(22px, 2.4vw, 32px))/1.08 var(--ec-display);
   font-stretch: 125%;
   letter-spacing: -.4px;
   opacity: 0; transform: translateY(8px);
@@ -83,10 +78,8 @@
 .ec3d-hint {
   position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%);
   padding: 7px 14px;
-  background: rgba(255, 255, 255, .88);
-  border: 1px solid var(--ec-line);
-  border-radius: 999px;
-  font: 600 13px/1 var(--ec-body);
+  background: var(--ec-paper);
+  font: 600 15px/1 var(--ec-body);
   color: var(--ec-ink);
   white-space: nowrap;
   pointer-events: none;
@@ -138,10 +131,7 @@
   padding: 0 22px;
   background: var(--ec-ink); color: var(--ec-paper);
   border: 0; cursor: pointer;
-  font: 800 14px/1 var(--ec-display);
-  font-stretch: 125%;
-  text-transform: uppercase;
-  letter-spacing: .6px;
+  font: 700 15px/1 var(--ec-body);
   transition: background .2s ease, transform .1s ease;
 }
 .ec3d-next:hover { background: #2e2a26; }
@@ -149,7 +139,8 @@
 .ec3d-next:focus-visible { outline: 2px solid var(--ec-ink); outline-offset: 3px; }
 
 .ec3d-status {
-  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  /* nur für Screenreader sichtbar, keine Linie – taste-skill-ignore */
+  position: absolute; width: 1px; height: 1px; overflow: hidden; /* taste-skill-ignore */
   clip: rect(0 0 0 0); white-space: nowrap; margin: 0;
 }
 
@@ -157,14 +148,25 @@
 
 @media (max-width: 760px) {
   .ec3d-stage { aspect-ratio: 4 / 5; min-height: 0; max-height: 82vh; }
-  .ec3d-head { left: 14px; top: 14px; max-width: 78%; }
+  .ec3d-head { left: 16px; top: 16px; max-width: 78%; }
   .ec3d-label { max-width: 150px; padding: 7px 9px 8px; }
-  .ec3d-label strong { font-size: 11.5px; }
-  .ec3d-label span { font-size: 11.5px; }
+  .ec3d-label strong { font-size: 14px; }
+  .ec3d-label span { font-size: 13px; }
   .ec3d-bar { flex-direction: column; align-items: stretch; gap: 10px; }
   .ec3d-steps { max-width: none; }
-  .ec3d-step { font-size: 12px; }
+  .ec3d-step { font-size: 13px; }
   .ec3d-next { width: 100%; }
+}
+
+/* Geschichte auf der Startseite: Bühne füllt die angeheftete Fläche, die Schritte stehen im Text daneben */
+.ec3d--story { height: 100%; }
+.ec3d--story .ec3d-stage { height: 100%; aspect-ratio: auto; min-height: 0; max-height: none; }
+.ec3d--story .ec3d-bar { display: none; }
+@media (min-width: 761px) { .ec3d--story:not(.is-final) .ec3d-head { opacity: 0; } }
+@media (max-width: 760px) {
+  .ec3d--story { height: auto; }
+  .ec3d--story .ec3d-stage { height: auto; aspect-ratio: 4 / 5; max-height: 82vh; }
+  .ec3d--story .ec3d-bar { display: flex; }
 }
 
 @media (prefers-reduced-motion: reduce) {

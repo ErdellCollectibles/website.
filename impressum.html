@@ -9,20 +9,29 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header class="site-header">
-  <a class="brand" href="index.html" aria-label="Erdell Collectibles – Startseite"><img src="img/logo.png" alt="erdell collectibles" width="536" height="174"></a>
-  <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" id="menu-open">Menü <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span></button>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="bar">
+  <a class="wordmark" href="index.html">erdell collectibles</a>
+  <nav aria-label="Hauptmenü"><ul><li><a href="index.html#case">Das Case</a></li><li><a href="index.html#technik">Technik</a></li><li><a href="index.html#ueber">Über mich</a></li><li><a href="index.html#kontakt">Kontakt</a></li></ul></nav>
+  <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" id="menu-open">Menü</button>
 </header>
 <div class="nav" id="nav" role="dialog" aria-modal="true" aria-label="Menü">
   <div class="nav-top">
-    <a href="index.html"><img src="img/logo.png" alt="erdell collectibles" width="536" height="174"></a>
-    <button class="close-btn" type="button" id="menu-close">Schließen ✕</button>
+    <a class="wordmark" href="index.html">erdell</a>
+    <button class="close-btn" type="button" id="menu-close">Schließen</button>
   </div>
-  <ul><li><a href="index.html">Start</a></li><li><a href="produkte.html">Produkte</a></li><li><a href="kontakt.html">Kontakt</a></li><li><a href="impressum.html" aria-current="page">Impressum</a></li><li><a href="datenschutz.html">Datenschutz</a></li></ul>
+  <ul>
+    <li><a href="index.html#case">Das Case</a></li>
+    <li><a href="index.html#technik">Technik</a></li>
+    <li><a href="index.html#ueber">Über mich</a></li>
+    <li><a href="index.html#kontakt">Kontakt</a></li>
+    <li><a href="impressum.html" aria-current="page">Impressum</a></li>
+    <li><a href="datenschutz.html">Datenschutz</a></li>
+  </ul>
 </div>
-<main>
-<div class="wrap page-head"><h1>Impressum</h1></div>
-<section style="padding-top:0"><div class="wrap legal">
+<main id="inhalt">
+<div class="page-head"><h1>Impressum</h1></div>
+<div class="legal">
 <h2>Angaben gemäß § 5 DDG</h2>
 <p>Erdell Collectibles<br>Inhaber: Erik Erdell<br>Gestütring 11<br>85435 Erding<br>Deutschland</p>
 <h2>Kontakt</h2>
@@ -33,13 +42,11 @@
 <p>Erik Erdell<br>Gestütring 11<br>85435 Erding</p>
 <h2>Verbraucherstreitbeilegung</h2>
 <p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
-</div></section>
+</div>
 </main>
-<footer class="site-footer">
-  <div class="wrap">
-    <span>© 2026 Erdell Collectibles – Inh. Erik Erdell</span>
-    <nav aria-label="Rechtliches"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
-  </div>
+<footer class="sub-footer">
+  <p>© 2026 Erdell Collectibles, Inh. Erik Erdell</p>
+  <nav aria-label="Rechtliches"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
 </footer>
 <script src="js/menu.js" defer></script>
 </body>
